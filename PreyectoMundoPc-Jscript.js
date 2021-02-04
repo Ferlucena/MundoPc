@@ -44,7 +44,7 @@ class Raton extends DispositivoEntrada {
   }
   //toString
   toString() {
-    return `{ idRaton: ${this._idRaton}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`;
+    return `{idRaton: ${this._idRaton}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`;
   }
 }
 
@@ -64,7 +64,7 @@ class Teclado extends DispositivoEntrada {
   }
   //toString
   toString() {
-    return `{ idTeclado: ${this._idTeclado}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`;
+    return `{idTeclado: ${this._idTeclado}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`;
   }
 }
 
@@ -113,7 +113,7 @@ class Computadora {
 
   //<------- Constructor ------->
   constructor(){
-    this._idComputadora = Computadora.contadorComputadoras++;
+    this._idComputadora = ++Computadora.contadorComputadoras;
     this._nombre = 'nombre';
     this._computadora = [];
   }
@@ -138,8 +138,23 @@ class Computadora {
   }
 
   //TODO Agrego toString?????
-
+  mostrarPartes(){
+    let productosparte = '';
+    for( let periferico of this._computadora){
+        productosparte += '\n'+ periferico.toString() + '';
+    }
+    console.log(`idComputadora: ${this._idComputadora} Nombre: ${this._nombre} \n Caracteristicas: ${productosparte}`);
 }
+}
+
+/** 
+ * TODO CLASE ORDEN 
+ * 
+ * */
+
+
+
+// *<------- Zona de PRUEBAS -------> 
 
 let monitor1 = new Monitor ('Xview', '24 pulgadas');
 let mouse1 = new Raton ('USB', 'Genius');
@@ -153,6 +168,8 @@ computadora1.agregaPerifericos(mouse1);
 computadora1.agregaPerifericos(teclado1);
 
 console.log(computadora1.nombre);
+
+computadora1.mostrarPartes(); 
 
 
 
