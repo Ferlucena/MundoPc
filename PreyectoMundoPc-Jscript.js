@@ -43,7 +43,8 @@
         return this._idRaton;
     }
     //toString
-    toString(){`{ idRaton: ${this._idRaton}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`}
+    toString(){
+        return `{ idRaton: ${this._idRaton}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`}
 }
 
 class Teclado extends DispositivoEntrada{
@@ -61,4 +62,7 @@ class Teclado extends DispositivoEntrada{
         return this._idTeclado;
     }
     //toString
+    toString(){
+        return `{ idTeclado: ${this._idTeclado}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`
+    }
 }
