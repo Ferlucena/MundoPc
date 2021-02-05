@@ -137,10 +137,15 @@ class Computadora {
       this._computadora.push(periferico);
   }
 
+  /** 
+   * TODO mostrarPartes
+   * */
+  
   mostrarPartes(){
     let productosparte = '';
-    for( let periferico of this._computadora){
-        productosparte += '\n'+ periferico.toString() + '';
+    for( let value of this._computadora){
+        //productosparte += '\n'+ periferico.toString() + '';
+        console.log(value);
       }
     console.log(`idComputadora: ${this._idComputadora} Nombre: ${this._nombre} \n Caracteristicas: ${productosparte}`);
 }
@@ -173,7 +178,7 @@ class Orden{
     for( let computadora of this._orden){
         compuOrden += '\n{'+ computadora.mostrarPartes() + '}';
     }
-    console.log(`{idOrden: ${this._idOrden}, Descripción: ${compuOrden}}`);
+    console.log(`{idOrden: ${this._idOrden}, Descripción: ${this.compuOrden}}`);
 }
 }
 
