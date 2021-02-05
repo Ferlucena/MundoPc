@@ -112,9 +112,9 @@ class Computadora {
   static contadorComputadoras = 0;
 
   //<------- Constructor ------->
-  constructor(){
+  constructor(nombre){
     this._idComputadora = ++Computadora.contadorComputadoras;
-    this._nombre = 'nombre';
+    this._nombre = nombre;
     this._computadora = [];
   }
 
@@ -137,39 +137,98 @@ class Computadora {
       this._computadora.push(periferico);
   }
 
-  //TODO Agrego toString?????
   mostrarPartes(){
     let productosparte = '';
     for( let periferico of this._computadora){
         productosparte += '\n'+ periferico.toString() + '';
-    }
+      }
     console.log(`idComputadora: ${this._idComputadora} Nombre: ${this._nombre} \n Caracteristicas: ${productosparte}`);
 }
 }
 
-/** 
- * TODO CLASE ORDEN 
- * 
- * */
 
+class Orden{
+  // Atributos
+  static contadorOrdenes = 0;
 
+  constructor(){
+    this._idOrden = ++Orden.contadorOrdenes;
+    this._orden = []
+  }
+
+  //<------- Zona Métodos ------->
+  //Getters
+  get idOrden(){
+    return this._idOrden;
+  }
+
+  //Agrego computadoras a la orden
+
+  addComp(computadora){
+    this._orden.push(computadora); 
+  }
+
+  mostrarOrden(){
+    let compuOrden = '';
+    for( let computadora of this._orden){
+        compuOrden += '\n{'+ computadora.mostrarPartes() + '}';
+    }
+    console.log(`{idOrden: ${this._idOrden}, Descripción: ${compuOrden}}`);
+}
+}
 
 // *<------- Zona de PRUEBAS -------> 
 
+//Creación de perifericos
 let monitor1 = new Monitor ('Xview', '24 pulgadas');
+let monitor2 = new Monitor ('Samsung', '24 pulgadas');
 let mouse1 = new Raton ('USB', 'Genius');
-let teclado1 = new Teclado('Bluethoot', 'Logitech');
+let mouse2 = new Raton ('Inalambrico', 'Logitech');
+let teclado1 = new Teclado('Inalambrico', 'Logitech');
+let teclado2 = new Teclado('USB', 'Genius');
 
-let computadora1 = new Computadora();
+// Armo computadoras
+// Computadora 1
+let computadora1 = new Computadora('computadora1');
 
-computadora1.nombre = 'compu1';
 computadora1.agregaPerifericos(monitor1);
 computadora1.agregaPerifericos(mouse1);
 computadora1.agregaPerifericos(teclado1);
 
-console.log(computadora1.nombre);
+//Computadora 2
+let computadora2 = new Computadora('computadora2');
 
-computadora1.mostrarPartes(); 
+computadora2.agregaPerifericos(monitor2);
+computadora2.agregaPerifericos(mouse2);
+computadora2.agregaPerifericos(teclado2);
+
+computadora2.mostrarPartes();
+
+// Computadora 3
+let computadora3 = new Computadora('Computadora3');
+
+computadora3.agregaPerifericos(monitor2);
+computadora3.agregaPerifericos(teclado2);
+computadora3.agregaPerifericos(mouse1);
+
+//Ingreso de Ordenes
+let orden1 = new Orden();
+
+orden1.addComp(computadora1);
+orden1.addComp(computadora2);
+
+let orden2 = new Orden();
+
+orden2.addComp(computadora3);
+orden2.addComp(computadora3);
+orden2.addComp(computadora1);
+
+//Visualizo las Ordenes
+
+orden1.mostrarOrden();
+
+
+ 
 
 
 
