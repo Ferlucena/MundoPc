@@ -35,7 +35,7 @@ class Raton extends DispositivoEntrada {
   //<------ Constructor ------->
   constructor(tipoEntrada, marca) {
     super(tipoEntrada, marca);
-    this._idRaton = Raton.contadorRatones++;
+    this._idRaton = ++Raton.contadorRatones;
   }
   //<------ Zona Métodos ------>
   //Getters
@@ -44,7 +44,7 @@ class Raton extends DispositivoEntrada {
   }
   //toString
   toString() {
-    return `{idRaton: ${this._idRaton}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`;
+    return `Ratón: [idRaton: ${this._idRaton} Tipo Entrada: ${this._tipoEntrada} Marca:${this._marca}]`;
   }
 }
 
@@ -55,7 +55,7 @@ class Teclado extends DispositivoEntrada {
   //<------ Constructor ------->
   constructor(tipoEntrada, marca) {
     super(tipoEntrada, marca);
-    this._idTeclado = Teclado.contadorTeclados++;
+    this._idTeclado = ++Teclado.contadorTeclados;
   }
   //<------ Zona Métodos ------>
   //Getters
@@ -64,7 +64,7 @@ class Teclado extends DispositivoEntrada {
   }
   //toString
   toString() {
-    return `{idTeclado: ${this._idTeclado}, Tipo: ${this._tipoEntrada}, Marca:${this._marca}}`;
+    return `Teclado: [idTeclado: ${this._idTeclado} Tipo Entrada: ${this._tipoEntrada} Marca:${this._marca}]`;
   }
 }
 
@@ -74,7 +74,7 @@ class Monitor {
 
   //<------- Constructor ------->
   constructor(marca, size) {
-    this._idMonitor = Monitor.contadorMonitores++;
+    this._idMonitor = ++Monitor.contadorMonitores;
     this._marca = marca;
     this._size = size;
   }
@@ -100,7 +100,7 @@ class Monitor {
 
   //toString
   toString() {
-    return `{idMonitor: ${this._idMonitor} Marca: ${this._marca} Tamaño: ${this._size}}`;
+    return `Monitor: [idMonitor: ${this._idMonitor} Marca: ${this._marca} Tamaño: ${this._size}]`;
   }
 }
 
@@ -112,10 +112,12 @@ class Computadora {
   static contadorComputadoras = 0;
 
   //<------- Constructor ------->
-  constructor(nombre){
+  constructor(nombre, monitor, raton, teclado){
     this._idComputadora = ++Computadora.contadorComputadoras;
     this._nombre = nombre;
-    this._computadora = [];
+    this._monitor = monitor;
+    this._raton = raton;
+    this._teclado = teclado;
   }
 
   //<------- Zona Métodos ------->
@@ -132,25 +134,11 @@ class Computadora {
       this._nombre = nombre;
   }
 
-  //Armo computadoras
-  agregaPerifericos(periferico){
-      this._computadora.push(periferico);
+  //toString
+  toString(){
+    return `Computadora ${this._idComputadora}: ${this._nombre} \n ${this._monitor} \n ${this._raton} \n ${this._teclado}`;
   }
-
-  /** 
-   * TODO mostrarPartes
-   * */
-  
-  mostrarPartes(){
-    let productosparte = '';
-    for( let value of this._computadora){
-        //productosparte += '\n'+ periferico.toString() + '';
-        console.log(value);
-      }
-    console.log(`idComputadora: ${this._idComputadora} Nombre: ${this._nombre} \n Caracteristicas: ${productosparte}`);
 }
-}
-
 
 class Orden{
   // Atributos
@@ -158,7 +146,7 @@ class Orden{
 
   constructor(){
     this._idOrden = ++Orden.contadorOrdenes;
-    this._orden = []
+    this._computadoras = [];
   }
 
   //<------- Zona Métodos ------->
@@ -167,18 +155,22 @@ class Orden{
     return this._idOrden;
   }
 
-  //Agrego computadoras a la orden
+  //addComp: Metodo - Agrego computadoras a la orden --> de esta forma se relacionaran la clase orden con la clase computadora.
 
   addComp(computadora){
-    this._orden.push(computadora); 
+    this._computadoras.push(computadora); 
   }
 
+  //mostrarOrden: como el toString, en este método llamamos el toString de cada elemento y lo concatenamos a una variable
+
   mostrarOrden(){
-    let compuOrden = '';
-    for( let computadora of this._orden){
-        compuOrden += '\n{'+ computadora.mostrarPartes() + '}';
+    let compuOrden = '';     // compuOrden es una variable temporal
+    for( let computadora of this._computadoras){
+        compuOrden += `\n ${computadora}`; 
+        /* mando a llamar el objeto computadora para que directamente se llame el método toString de cada elemento del tipo computadora, 
+        computadora tiene la referencia la referencia de cada uno de los objetos de tipo computadora*/ 
     }
-    console.log(`{idOrden: ${this._idOrden}, Descripción: ${this.compuOrden}}`);
+    console.log(`Orden id: ${this._idOrden}, Computadoras: ${compuOrden}`);
 }
 }
 
@@ -187,50 +179,46 @@ class Orden{
 //Creación de perifericos
 let monitor1 = new Monitor ('Xview', '24 pulgadas');
 let monitor2 = new Monitor ('Samsung', '24 pulgadas');
-let mouse1 = new Raton ('USB', 'Genius');
-let mouse2 = new Raton ('Inalambrico', 'Logitech');
+console.log(monitor1.toString());
+console.log(monitor2.toString());
+
+let raton1 = new Raton ('USB', 'Genius');
+let raton2 = new Raton ('Inalambrico', 'Logitech');
+console.log(raton1.toString());
+console.log(raton2.toString());
+
 let teclado1 = new Teclado('Inalambrico', 'Logitech');
 let teclado2 = new Teclado('USB', 'Genius');
+console.log(teclado1.toString());
+console.log(teclado2.toString());
+
 
 // Armo computadoras
 // Computadora 1
-let computadora1 = new Computadora('computadora1');
-
-computadora1.agregaPerifericos(monitor1);
-computadora1.agregaPerifericos(mouse1);
-computadora1.agregaPerifericos(teclado1);
+let computadora1 = new Computadora('HP', monitor1, raton1, teclado1);
+console.log(computadora1.toString());
+console.log(`${computadora1}`);  // Utilizando template String
 
 //Computadora 2
-let computadora2 = new Computadora('computadora2');
-
-computadora2.agregaPerifericos(monitor2);
-computadora2.agregaPerifericos(mouse2);
-computadora2.agregaPerifericos(teclado2);
-
-computadora2.mostrarPartes();
+let computadora2 = new Computadora('Ryzen 5', monitor2, raton2, teclado1);
 
 // Computadora 3
-let computadora3 = new Computadora('Computadora3');
-
-computadora3.agregaPerifericos(monitor2);
-computadora3.agregaPerifericos(teclado2);
-computadora3.agregaPerifericos(mouse1);
+let computadora3 = new Computadora('Core i5', monitor2, raton1, teclado2);
+console.log(`${computadora3}`);
 
 //Ingreso de Ordenes
 let orden1 = new Orden();
-
 orden1.addComp(computadora1);
 orden1.addComp(computadora2);
+orden1.addComp(computadora2);
+
+orden1.mostrarOrden();
 
 let orden2 = new Orden();
 
-orden2.addComp(computadora3);
-orden2.addComp(computadora3);
-orden2.addComp(computadora1);
-
 //Visualizo las Ordenes
 
-orden1.mostrarOrden();
+
 
 
  
