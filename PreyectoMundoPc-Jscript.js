@@ -212,12 +212,10 @@ orden1.addComp(computadora1);
 orden1.addComp(computadora2);
 orden1.addComp(computadora2);
 
-orden1.mostrarOrden();
-
 let orden2 = new Orden();
 
 //Visualizo las Ordenes
-
+orden1.mostrarOrden();
 
 
 
